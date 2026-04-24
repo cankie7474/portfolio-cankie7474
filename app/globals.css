@@ -1,26 +1,455 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #030303;
+  --foreground: #f5f5f5;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(34, 211, 238, 0.14), transparent 30%),
+    radial-gradient(circle at 80% 20%, rgba(217, 70, 239, 0.12), transparent 32%),
+    linear-gradient(180deg, #050505 0%, #030303 45%, #080808 100%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, black, transparent 75%);
+}
+
+::selection {
+  background: rgba(103, 232, 249, 0.35);
+  color: white;
+}
+
+.duck-card {
+  transition:
+    border-color 240ms ease,
+    box-shadow 240ms ease,
+    background-color 240ms ease;
+}
+
+.duck-card:hover {
+  border-color: rgba(103, 232, 249, 0.28);
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: 0 0 42px rgba(103, 232, 249, 0.1);
+}
+
+.duck-scene {
+  isolation: isolate;
+  transition: transform 240ms ease;
+}
+
+.duck-card:hover .duck-scene {
+  transform: scale(1.025);
+}
+
+.duck-shadow {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  width: 212px;
+  height: 20px;
+  border-radius: 999px;
+  background: rgba(103, 232, 249, 0.1);
+  filter: blur(10px);
+  transform: translateX(-50%);
+  animation: duck-shadow-pulse 3.4s ease-in-out infinite;
+}
+
+.duck-platform {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  width: 220px;
+  height: 30px;
+  border-radius: 999px;
+  background: #132526;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  transform: translateX(-50%);
+  animation: pillow-bounce 3.4s ease-in-out infinite;
+}
+
+.duck-pillow {
+  position: absolute;
+  left: 140px;
+  bottom: 38px;
+  z-index: 1;
+  width: 116px;
+  height: 42px;
+  border-radius: 999px;
+  background: rgba(103, 232, 249, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(103, 232, 249, 0.14);
+  transform: rotate(-5deg);
+  animation: duck-pillow-bounce 3.4s ease-in-out infinite;
+}
+
+.duck {
+  position: absolute;
+  left: 38px;
+  bottom: 48px;
+  z-index: 3;
+  width: 148px;
+  height: 62px;
+  border-radius: 55% 45% 48% 52% / 58% 62% 38% 42%;
+  background: #ffd84a;
+  box-shadow:
+    inset -16px -13px 0 rgba(190, 130, 0, 0.2),
+    inset 10px 9px 0 rgba(255, 255, 255, 0.18),
+    0 10px 24px rgba(0, 0, 0, 0.18);
+  transform-origin: 55% 80%;
+  animation:
+    duck-breathe 3.4s ease-in-out infinite,
+    duck-float 7s ease-in-out infinite;
+  transition:
+    transform 240ms ease,
+    filter 240ms ease;
+}
+
+.duck-card:hover .duck {
+  filter: drop-shadow(0 0 16px rgba(255, 216, 74, 0.22));
+}
+
+.duck-tail {
+  position: absolute;
+  left: -3px;
+  bottom: 28px;
+  width: 46px;
+  height: 30px;
+  border-radius: 70% 30% 55% 45%;
+  background: #f3c936;
+  box-shadow: inset -8px -7px 0 rgba(190, 130, 0, 0.18);
+  transform-origin: 92% 75%;
+  animation: tail-wiggle 4.2s ease-in-out infinite;
+}
+
+.duck-wing {
+  position: absolute;
+  left: 48px;
+  top: 20px;
+  width: 54px;
+  height: 26px;
+  border-radius: 55% 45% 60% 40%;
+  background: rgba(214, 154, 20, 0.3);
+  box-shadow: inset -8px -6px 0 rgba(190, 130, 0, 0.12);
+  transform: rotate(-8deg);
+}
+
+.duck-foot {
+  position: absolute;
+  bottom: -1px;
+  width: 28px;
+  height: 13px;
+  border-radius: 999px;
+  background: #d69a14;
+}
+
+.duck-foot-left {
+  left: 32px;
+}
+
+.duck-foot-right {
+  left: 92px;
+  animation: foot-kick 5.2s ease-in-out infinite;
+}
+
+.duck-head {
+  position: absolute;
+  right: -38px;
+  bottom: 14px;
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  background: #ffd84a;
+  box-shadow: inset -10px -9px 0 rgba(190, 130, 0, 0.17);
+  transform-origin: 30% 80%;
+  animation: head-twitch 5.6s ease-in-out infinite;
+}
+
+.duck-feather {
+  position: absolute;
+  left: 17px;
+  top: -4px;
+  width: 21px;
+  height: 13px;
+  border-radius: 999px;
+  background: #f3c936;
+  transform: rotate(18deg);
+}
+
+.duck-eye {
+  position: absolute;
+  right: 16px;
+  top: 23px;
+  width: 18px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.duck-hover-eye {
+  position: absolute;
+  right: 21px;
+  top: 20px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.78);
+  opacity: 0;
+  transform: scaleY(0.2);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.duck-card:hover .duck-eye {
+  opacity: 0;
+}
+
+.duck-card:hover .duck-hover-eye {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.duck-beak {
+  position: absolute;
+  right: -16px;
+  top: 29px;
+  width: 34px;
+  height: 17px;
+  border-radius: 70% 30% 45% 55%;
+  background: #ff9f1c;
+  box-shadow: inset -4px -3px 0 rgba(165, 85, 0, 0.2);
+  transform-origin: 8% 50%;
+  animation: beak-wiggle 4.8s ease-in-out infinite;
+}
+
+.duck-sparkle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(103, 232, 249, 0.65);
+  box-shadow: 0 0 12px rgba(103, 232, 249, 0.45);
+  animation: sparkle-pop 3.8s ease-in-out infinite;
+}
+
+.duck-sparkle-one {
+  left: 38px;
+  top: 30px;
+}
+
+.duck-sparkle-two {
+  right: 34px;
+  bottom: 54px;
+  animation-delay: 1.1s;
+}
+
+.sleep-z {
+  position: absolute;
+  font-weight: 700;
+  color: rgba(165, 243, 252, 0.72);
+  text-shadow: 0 0 12px rgba(103, 232, 249, 0.28);
+  animation: zzz-float 2.9s ease-in-out infinite;
+}
+
+.sleep-z-one {
+  right: 62px;
+  top: 22px;
+  font-size: 12px;
+}
+
+.sleep-z-two {
+  right: 35px;
+  top: 5px;
+  font-size: 15px;
+  animation-delay: 0.5s;
+}
+
+.sleep-z-three {
+  right: 7px;
+  top: 28px;
+  font-size: 19px;
+  animation-delay: 1s;
+}
+
+@keyframes duck-breathe {
+  0%,
+  100% {
+    transform: translateY(0) scaleX(1) scaleY(1);
+  }
+
+  50% {
+    transform: translateY(-3px) scaleX(1.04) scaleY(0.96);
+  }
+}
+
+@keyframes duck-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -2px;
+  }
+}
+
+@keyframes duck-shadow-pulse {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: translateX(-50%) scaleX(1);
+  }
+
+  50% {
+    opacity: 0.48;
+    transform: translateX(-50%) scaleX(0.9);
+  }
+}
+
+@keyframes pillow-bounce {
+  0%,
+  100% {
+    transform: translateX(-50%) scaleX(1) scaleY(1);
+  }
+
+  50% {
+    transform: translateX(-50%) scaleX(1.035) scaleY(0.92);
+  }
+}
+
+@keyframes duck-pillow-bounce {
+  0%,
+  100% {
+    transform: rotate(-5deg) scaleX(1) scaleY(1);
+  }
+
+  50% {
+    transform: rotate(-5deg) scaleX(1.04) scaleY(0.92);
+  }
+}
+
+@keyframes head-twitch {
+  0%,
+  70%,
+  100% {
+    transform: rotate(0);
+  }
+
+  73% {
+    transform: rotate(-5deg) translateY(-1px);
+  }
+
+  76% {
+    transform: rotate(3deg);
+  }
+
+  79% {
+    transform: rotate(0);
+  }
+}
+
+@keyframes beak-wiggle {
+  0%,
+  62%,
+  100% {
+    transform: rotate(0);
+  }
+
+  66% {
+    transform: rotate(5deg) scaleX(1.04);
+  }
+
+  70% {
+    transform: rotate(-3deg);
+  }
+}
+
+@keyframes foot-kick {
+  0%,
+  72%,
+  100% {
+    transform: rotate(0) translateY(0);
+  }
+
+  76% {
+    transform: rotate(-12deg) translateY(-2px);
+  }
+
+  80% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes tail-wiggle {
+  0%,
+  52%,
+  100% {
+    transform: rotate(-18deg);
+  }
+
+  57% {
+    transform: rotate(-30deg) translateY(-2px);
+  }
+
+  62% {
+    transform: rotate(-12deg);
+  }
+}
+
+@keyframes sparkle-pop {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.75);
+  }
+
+  45% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes zzz-float {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) rotate(-8deg) scale(0.82);
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  62% {
+    transform: translateY(-4px) rotate(9deg) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-25px) rotate(-11deg) scale(1.12);
+  }
 }
