@@ -17,7 +17,7 @@ export default function Projects() {
           {projects.map((project) => (
             <article
               key={project.title}
-              className="group overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] backdrop-blur transition duration-300 hover:-translate-y-2 hover:border-white/25 hover:bg-white/[0.07]"
+              className="group overflow-hidden rounded-lg border border-white/10 bg-white/4 backdrop-blur transition duration-300 hover:-translate-y-2 hover:border-white/25 hover:bg-white/[0.07]"
             >
               <div className={`h-56 bg-linear-to-br ${project.gradient} p-5`}>
                 <div className="flex h-full flex-col justify-between rounded-md border border-white/25 bg-black/25 p-5 backdrop-blur">

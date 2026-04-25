@@ -1,8 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import { ArrowRight, Code2 } from "lucide-react";
-
 import type { GitHubLanguage, GitHubProfile } from "@/data/github";
 import { profile } from "@/data/profile";
+import TypingCodeBlock from "./TypingCodeBlock";
 
 type HeroProps = {
   githubProfile: GitHubProfile | null;
@@ -28,6 +30,9 @@ const fallbackLanguages: GitHubLanguage[] = [
 export default function Hero({ githubProfile, githubLanguages }: HeroProps) {
   const languages =
     githubLanguages.length > 0 ? githubLanguages : fallbackLanguages;
+
+  const avatarUrl =
+    githubProfile?.avatarUrl || `https://github.com/${profile.githubUsername}.png`;
   const topLanguages = languages.slice(0, 3);
 
   return (
@@ -38,53 +43,51 @@ export default function Hero({ githubProfile, githubLanguages }: HeroProps) {
 
       <div className="relative z-10 mx-auto w-full max-w-7xl">
         <div className="grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">
+          {/* LEFT CARD */}
           <div className="rounded-lg border border-white/10 bg-white/4 p-4 shadow-2xl shadow-cyan-950/40 backdrop-blur-xl transition duration-300 hover:border-cyan-300/25">
             <div className="rounded-md border border-white/10 bg-black/70 p-6 sm:p-7">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
-                {githubProfile?.avatarUrl ? (
-                  <Image
-                    src={githubProfile.avatarUrl}
-                    alt={`${profile.name} GitHub profile picture`}
-                    width={112}
-                    height={112}
-                    className="rounded-lg border border-white/10 shadow-[0_0_35px_rgba(103,232,249,0.12)]"
-                    priority
-                  />
-                ) : (
-                  <div className="flex size-28 items-center justify-center rounded-lg border border-white/10 bg-white/10 text-3xl font-semibold text-white">
-                    CK
-                  </div>
-                )}
+                <Image
+                  src={avatarUrl}
+                  alt={`${profile.name} GitHub profile picture`}
+                  width={112}
+                  height={112}
+                  className="rounded-lg border border-white/10 shadow-[0_0_35px_rgba(103,232,249,0.12)]"
+                  priority
+                />
 
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium text-cyan-300">About Me</p>
+
                   <h2 className="mt-2 text-3xl font-semibold tracking-tight text-white">
                     {githubProfile?.name || profile.name}
                   </h2>
+
                   <p className="mt-1 text-sm text-zinc-400">
                     @{githubProfile?.login || profile.githubUsername}
-                  </p>
-
-                  <p className="mt-5 max-w-2xl leading-7 text-zinc-400">
-                    {githubProfile?.bio ||
-                      "Full Stack Developer from Austria building web, backend, and mobile projects."}
                   </p>
                 </div>
               </div>
 
-              <div className="mt-7 grid gap-3 sm:grid-cols-3">
+              <div className="mt-7 rounded-md border border-white/10 bg-black/40 p-4">
+                <TypingCodeBlock />
+              </div>
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-3">
                 <div className="rounded-md border border-white/10 bg-white/4 p-4">
                   <p className="text-2xl font-semibold text-white">
                     {githubProfile?.publicRepos ?? "2"}
                   </p>
                   <p className="text-xs text-zinc-500">Repositories</p>
                 </div>
+
                 <div className="rounded-md border border-white/10 bg-white/4 p-4">
                   <p className="text-2xl font-semibold text-white">
                     {githubProfile?.followers ?? "0"}
                   </p>
                   <p className="text-xs text-zinc-500">Followers</p>
                 </div>
+
                 <div className="rounded-md border border-white/10 bg-white/4 p-4">
                   <p className="text-2xl font-semibold text-white">
                     {languages[0]?.name || "Code"}
@@ -92,23 +95,10 @@ export default function Hero({ githubProfile, githubLanguages }: HeroProps) {
                   <p className="text-xs text-zinc-500">Top language</p>
                 </div>
               </div>
-
-              <div className="mt-6 space-y-4 rounded-md border border-white/10 bg-black/40 p-4 font-mono text-sm">
-                <p className="text-zinc-500">const developer = &#123;</p>
-                <p className="pl-4 text-cyan-200">
-                  role: &quot;{profile.role}&quot;,
-                </p>
-                <p className="pl-4 text-emerald-200">
-                  age: &quot;{profile.age}&quot;,
-                </p>
-                <p className="pl-4 text-fuchsia-200">
-                  stack: &quot;web + backend + mobile&quot;,
-                </p>
-                <p className="text-zinc-500">&#125;;</p>
-              </div>
             </div>
           </div>
 
+          {/* RIGHT CARD */}
           <div className="rounded-lg border border-white/10 bg-white/4 p-4 shadow-2xl shadow-fuchsia-950/30 backdrop-blur-xl transition duration-300 hover:border-fuchsia-300/25">
             <div className="h-full rounded-md border border-white/10 bg-black/70 p-6 sm:p-7">
               <div className="flex items-center justify-between gap-4">
@@ -117,6 +107,7 @@ export default function Hero({ githubProfile, githubLanguages }: HeroProps) {
                     Languages
                   </h2>
                 </div>
+
                 <div className="flex size-11 items-center justify-center rounded-md border border-cyan-300/20 bg-cyan-300/10 text-cyan-300 shadow-[0_0_24px_rgba(103,232,249,0.12)]">
                   <Code2 size={20} />
                 </div>
@@ -134,10 +125,12 @@ export default function Hero({ githubProfile, githubLanguages }: HeroProps) {
                         />
                         {language.name}
                       </div>
+
                       <span className="font-medium text-white">
                         {language.percentage}%
                       </span>
                     </div>
+
                     <div className="h-2 rounded-full bg-white/10">
                       <div
                         className={`h-full rounded-full ${
@@ -177,6 +170,7 @@ export default function Hero({ githubProfile, githubLanguages }: HeroProps) {
                   <span className="sleep-z sleep-z-two">z</span>
                   <span className="sleep-z sleep-z-three">z</span>
                 </div>
+
                 <p className="mt-2 text-center text-xs font-medium text-zinc-500">
                   Compiling dreams...
                 </p>
@@ -196,6 +190,7 @@ export default function Hero({ githubProfile, githubLanguages }: HeroProps) {
               className="transition group-hover:translate-x-1"
             />
           </a>
+
           <a
             href="#contact"
             className="inline-flex items-center justify-center rounded-md border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:-translate-y-0.5 hover:border-cyan-300/60 hover:bg-cyan-300/10"
