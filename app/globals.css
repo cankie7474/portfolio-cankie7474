@@ -146,18 +146,6 @@ body::after {
   animation: tail-wiggle 4.2s ease-in-out infinite;
 }
 
-.duck-wing {
-  position: absolute;
-  left: 48px;
-  top: 20px;
-  width: 54px;
-  height: 26px;
-  border-radius: 55% 45% 60% 40%;
-  background: rgba(214, 154, 20, 0.3);
-  box-shadow: inset -8px -6px 0 rgba(190, 130, 0, 0.12);
-  transform: rotate(-8deg);
-}
-
 .duck-foot {
   position: absolute;
   bottom: -1px;
@@ -245,27 +233,6 @@ body::after {
   box-shadow: inset -4px -3px 0 rgba(165, 85, 0, 0.2);
   transform-origin: 8% 50%;
   animation: beak-wiggle 4.8s ease-in-out infinite;
-}
-
-.duck-sparkle {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  border-radius: 999px;
-  background: rgba(103, 232, 249, 0.65);
-  box-shadow: 0 0 12px rgba(103, 232, 249, 0.45);
-  animation: sparkle-pop 3.8s ease-in-out infinite;
-}
-
-.duck-sparkle-one {
-  left: 38px;
-  top: 30px;
-}
-
-.duck-sparkle-two {
-  right: 34px;
-  bottom: 54px;
-  animation-delay: 1.1s;
 }
 
 .sleep-z {
@@ -418,19 +385,6 @@ body::after {
 
   62% {
     transform: rotate(-12deg);
-  }
-}
-
-@keyframes sparkle-pop {
-  0%,
-  100% {
-    opacity: 0.25;
-    transform: scale(0.75);
-  }
-
-  45% {
-    opacity: 1;
-    transform: scale(1.15);
   }
 }
 

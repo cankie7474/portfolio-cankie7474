@@ -32,7 +32,8 @@ export default function Hero({ githubProfile, githubLanguages }: HeroProps) {
     githubLanguages.length > 0 ? githubLanguages : fallbackLanguages;
 
   const avatarUrl =
-    githubProfile?.avatarUrl || `https://github.com/${profile.githubUsername}.png`;
+    githubProfile?.avatarUrl ||
+    `https://github.com/${profile.githubUsername}.png`;
   const topLanguages = languages.slice(0, 3);
 
   return (
@@ -145,16 +146,12 @@ export default function Hero({ githubProfile, githubLanguages }: HeroProps) {
 
               <div className="duck-card mt-8 overflow-hidden rounded-md border border-white/10 bg-white/[0.035] p-5">
                 <div className="duck-scene relative mx-auto h-40 max-w-72">
-                  <span className="duck-sparkle duck-sparkle-one" />
-                  <span className="duck-sparkle duck-sparkle-two" />
-
                   <div className="duck-shadow" />
                   <div className="duck-platform" />
                   <div className="duck-pillow" />
 
                   <div className="duck">
                     <div className="duck-tail" />
-                    <div className="duck-wing" />
                     <div className="duck-foot duck-foot-left" />
                     <div className="duck-foot duck-foot-right" />
 
