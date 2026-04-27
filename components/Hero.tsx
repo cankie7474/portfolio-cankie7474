@@ -4,6 +4,7 @@ import { ArrowRight, Code2 } from "lucide-react";
 import type { GitHubLanguage, GitHubProfile } from "@/data/github";
 import { profile } from "@/data/profile";
 import AnimateIn from "@/components/ui/AnimateIn";
+import TextReveal from "@/components/ui/TextReveal";
 import TypingCodeBlock from "./TypingCodeBlock";
 
 type HeroProps = {
@@ -61,45 +62,60 @@ function getWidthClass(percentage: number) {
 export default function Hero({ githubProfile, githubLanguages }: HeroProps) {
   const languages =
     githubLanguages.length > 0 ? githubLanguages : fallbackLanguages;
-
   const avatarUrl =
     githubProfile?.avatarUrl ||
     `https://github.com/${profile.githubUsername}.png`;
   const topLanguages = languages.slice(0, 3);
 
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 py-24 md:py-32">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/20 via-background to-background" />
+    <section className="relative overflow-hidden px-6 md:px-16">
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_50%_at_50%_-20%,rgba(99,102,241,0.15)_0%,transparent_100%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 opacity-3 bg-[radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] bg-size-[18px_18px]" />
 
-      <div className="relative z-10 mx-auto w-full max-w-5xl">
-        <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <AnimateIn delay={0.1} direction="left">
-            <div className="group h-full rounded-2xl border border-white/10 bg-white/5 p-4 shadow-xl shadow-black/20 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10">
-              <div className="rounded-xl border border-white/10 bg-black/70 p-6 sm:p-7">
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-5xl items-center">
+        <div className="max-w-4xl">
+          <h1 className="text-5xl font-bold leading-tight tracking-tight text-white md:text-7xl lg:text-8xl">
+            <TextReveal text="Welcome to my portfolio." />
+          </h1>
+          <AnimateIn delay={0.45}>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+              A small collection of projects, skills, and ideas.
+            </p>
+          </AnimateIn>
+        </div>
+      </div>
+
+      <div className="relative z-10 mx-auto w-full max-w-5xl pb-24 md:pb-32">
+        <div className="mt-12 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+          <AnimateIn delay={0.65} direction="left">
+            <div className="group relative h-full overflow-hidden rounded-2xl border border-white/6 bg-white/3 p-4 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-white/12 hover:bg-white/6">
+              <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_50%_0%,rgba(99,102,241,0.08)_0%,transparent_70%)]" />
+              <div className="relative z-10 rounded-xl border border-white/6 bg-black/60 p-6 sm:p-7">
                 <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
                   <Image
                     src={avatarUrl}
                     alt={`${profile.name} GitHub profile picture`}
                     width={112}
                     height={112}
-                    className="rounded-xl border border-white/10 shadow-[0_0_35px_rgba(99,102,241,0.2)]"
+                    className="rounded-xl border border-white/8 shadow-[0_0_35px_rgba(99,102,241,0.18)]"
                     priority
                   />
 
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-medium text-primary">About Me</p>
-
                     <h2 className="mt-2 text-3xl font-bold tracking-tight text-white md:text-4xl">
-                      {githubProfile?.name || profile.name}
+                      <TextReveal
+                        text={githubProfile?.name || profile.name}
+                        delay={0.75}
+                      />
                     </h2>
-
                     <p className="mt-1 text-base leading-relaxed text-muted-foreground">
                       @{githubProfile?.login || profile.githubUsername}
                     </p>
                   </div>
                 </div>
 
-                <div className="mt-7 rounded-xl border border-white/10 bg-black/40 p-4">
+                <div className="mt-7 rounded-xl border border-white/6 bg-black/40 p-4">
                   <TypingCodeBlock />
                 </div>
 
@@ -118,8 +134,12 @@ export default function Hero({ githubProfile, githubLanguages }: HeroProps) {
                       value: languages[0]?.name || "Code",
                     },
                   ].map((stat, index) => (
-                    <AnimateIn key={stat.label} delay={0.18 + index * 0.06}>
-                      <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <AnimateIn
+                      key={stat.label}
+                      delay={0.82 + index * 0.06}
+                      direction="scale"
+                    >
+                      <div className="rounded-2xl border border-white/6 bg-white/3 p-4 transition-colors hover:border-white/12 hover:bg-white/6">
                         <p className="text-2xl font-semibold text-white">
                           {stat.value}
                         </p>
@@ -132,12 +152,13 @@ export default function Hero({ githubProfile, githubLanguages }: HeroProps) {
             </div>
           </AnimateIn>
 
-          <AnimateIn delay={0.18} direction="right">
-            <div className="group h-full rounded-2xl border border-white/10 bg-white/5 p-4 shadow-xl shadow-black/20 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10">
-              <div className="h-full rounded-xl border border-white/10 bg-black/70 p-6 sm:p-7">
+          <AnimateIn delay={0.75} direction="right">
+            <div className="group relative h-full overflow-hidden rounded-2xl border border-white/6 bg-white/3 p-4 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-white/12 hover:bg-white/6">
+              <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_50%_0%,rgba(99,102,241,0.08)_0%,transparent_70%)]" />
+              <div className="relative z-10 h-full rounded-xl border border-white/6 bg-black/60 p-6 sm:p-7">
                 <div className="flex items-center justify-between gap-4">
                   <h2 className="text-2xl font-semibold text-white">
-                    Languages
+                    <TextReveal text="Languages" delay={0.85} />
                   </h2>
 
                   <div className="flex size-11 items-center justify-center rounded-lg border border-primary/25 bg-primary/10 text-primary shadow-[0_0_24px_rgba(99,102,241,0.18)]">
@@ -149,7 +170,7 @@ export default function Hero({ githubProfile, githubLanguages }: HeroProps) {
                   {topLanguages.map((language, index) => (
                     <AnimateIn
                       key={language.name}
-                      delay={0.24 + index * 0.07}
+                      delay={0.9 + index * 0.07}
                       direction="up"
                     >
                       <div>
@@ -180,8 +201,8 @@ export default function Hero({ githubProfile, githubLanguages }: HeroProps) {
                   ))}
                 </div>
 
-                <AnimateIn delay={0.42} direction="up">
-                  <div className="duck-card mt-8 overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5">
+                <AnimateIn delay={1.05} direction="scale">
+                  <div className="duck-card mt-8 overflow-hidden rounded-2xl border border-white/6 bg-white/3 p-5">
                     <div className="duck-scene relative mx-auto h-40 max-w-72">
                       <div className="duck-shadow" />
                       <div className="duck-platform" />
@@ -215,11 +236,11 @@ export default function Hero({ githubProfile, githubLanguages }: HeroProps) {
           </AnimateIn>
         </div>
 
-        <AnimateIn delay={0.28} direction="up">
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+        <AnimateIn delay={0.9} direction="up">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
               href="#projects"
-              className="group inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-black shadow-[0_0_40px_rgba(255,255,255,0.22)] transition hover:-translate-y-0.5 hover:bg-zinc-200"
+              className="group inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-black shadow-[0_0_40px_rgba(255,255,255,0.16)] transition hover:-translate-y-0.5 hover:bg-zinc-200"
             >
               View Projects
               <ArrowRight
@@ -230,7 +251,7 @@ export default function Hero({ githubProfile, githubLanguages }: HeroProps) {
 
             <a
               href="#contact"
-              className="inline-flex items-center justify-center rounded-lg border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:-translate-y-0.5 hover:border-primary/60 hover:bg-primary/10"
+              className="inline-flex items-center justify-center rounded-lg border border-white/8 bg-white/3 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:-translate-y-0.5 hover:border-primary/60 hover:bg-primary/10"
             >
               Contact Me
             </a>

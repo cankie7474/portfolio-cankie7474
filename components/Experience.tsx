@@ -3,6 +3,7 @@ import { BriefcaseBusiness } from "lucide-react";
 import { experience } from "@/data/experience";
 import SectionHeading from "@/components/SectionHeading";
 import AnimateIn from "@/components/ui/AnimateIn";
+import TextReveal from "@/components/ui/TextReveal";
 
 export default function Experience() {
   return (
@@ -15,7 +16,7 @@ export default function Experience() {
         />
 
         <div className="relative">
-          <div className="absolute left-4 top-0 hidden h-full w-px bg-linear-to-b from-cyan-300 via-white/20 to-transparent sm:block" />
+          <div className="absolute left-4 top-0 hidden h-full w-px bg-gradient-to-b from-cyan-300 via-white/20 to-transparent sm:block" />
 
           <div className="space-y-6">
             {experience.map((item, index) => {
@@ -31,24 +32,27 @@ export default function Experience() {
                       <BriefcaseBusiness size={15} />
                     </div>
                     <div
-                      className={`group rounded-2xl border p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 hover:shadow-xl hover:shadow-black/20 ${
+                      className={`group relative overflow-hidden rounded-2xl border p-6 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-white/12 hover:bg-white/6 ${
                         isCurrent
-                          ? "border-primary/40 bg-primary/10 shadow-[0_0_28px_rgba(99,102,241,0.12)]"
-                          : "border-white/10 bg-white/5"
+                          ? "border-primary/35 bg-primary/10 shadow-[0_0_28px_rgba(99,102,241,0.12)]"
+                          : "border-white/6 bg-white/3"
                       }`}
                     >
-                      <p className="text-sm font-medium text-primary">
-                        {item.period}
-                      </p>
-                      <h3 className="mt-2 text-xl font-semibold text-white">
-                        {item.title}
-                      </h3>
-                      <p className="mt-1 text-sm text-zinc-500">
-                        {item.company}
-                      </p>
-                      <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                        {item.description}
-                      </p>
+                      <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_50%_0%,rgba(99,102,241,0.08)_0%,transparent_70%)]" />
+                      <div className="relative z-10">
+                        <p className="text-sm font-medium text-primary">
+                          {item.period}
+                        </p>
+                        <h3 className="mt-2 text-xl font-semibold text-white">
+                          <TextReveal text={item.title} delay={index * 0.03} />
+                        </h3>
+                        <p className="mt-1 text-sm text-zinc-500">
+                          {item.company}
+                        </p>
+                        <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+                          {item.description}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </AnimateIn>

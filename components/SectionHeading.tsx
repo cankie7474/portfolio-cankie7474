@@ -1,4 +1,5 @@
 import AnimateIn from "@/components/ui/AnimateIn";
+import TextReveal from "@/components/ui/TextReveal";
 
 type SectionHeadingProps = {
   eyebrow: string;
@@ -19,7 +20,7 @@ export default function SectionHeading({
         </p>
         {title ? (
           <h2 className="text-4xl font-bold tracking-tight text-white md:text-6xl">
-            {title}
+            <TextReveal text={title} />
           </h2>
         ) : null}
       </AnimateIn>

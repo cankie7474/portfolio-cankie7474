@@ -20,9 +20,13 @@ export default async function Home() {
       <Navbar />
       <main>
         <Hero githubProfile={githubProfile} githubLanguages={githubLanguages} />
+        <div className="section-divider" />
         <CoreStack />
+        <div className="section-divider" />
         <Projects />
+        <div className="section-divider" />
         <Experience />
+        <div className="section-divider" />
         <Contact githubProfile={githubProfile} />
       </main>
       <Footer />

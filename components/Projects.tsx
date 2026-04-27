@@ -3,6 +3,7 @@ import { ArrowUpRight, Code2 } from "lucide-react";
 import { projects } from "@/data/projects";
 import SectionHeading from "@/components/SectionHeading";
 import AnimateIn from "@/components/ui/AnimateIn";
+import TextReveal from "@/components/ui/TextReveal";
 
 export default function Projects() {
   return (
@@ -17,8 +18,11 @@ export default function Projects() {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
             <AnimateIn key={project.title} delay={index * 0.1} direction="up">
-              <article className="group h-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 hover:shadow-xl hover:shadow-black/20">
-                <div className={`h-56 bg-linear-to-br ${project.gradient} p-5`}>
+              <article className="group relative h-full overflow-hidden rounded-2xl border border-white/6 bg-white/3 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-white/12 hover:bg-white/6">
+                <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_50%_0%,rgba(99,102,241,0.08)_0%,transparent_70%)]" />
+                <div
+                  className={`relative z-10 h-56 bg-linear-to-br ${project.gradient} p-5`}
+                >
                   <div className="flex h-full flex-col justify-between rounded-xl border border-white/25 bg-black/25 p-5 backdrop-blur">
                     <div className="h-2 w-24 rounded-full bg-white/50" />
                     <div>
@@ -32,9 +36,9 @@ export default function Projects() {
                   </div>
                 </div>
 
-                <div className="p-6">
+                <div className="relative z-10 p-6">
                   <h3 className="text-xl font-semibold text-white">
-                    {project.title}
+                    <TextReveal text={project.title} delay={index * 0.05} />
                   </h3>
                   <p className="mt-3 text-base leading-relaxed text-muted-foreground">
                     {project.description}
@@ -44,7 +48,7 @@ export default function Projects() {
                     {project.tech.map((tech) => (
                       <span
                         key={tech}
-                        className="rounded-lg border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300"
+                        className="rounded-lg border border-white/6 bg-white/3 px-3 py-1 text-xs text-zinc-300 transition hover:border-white/12 hover:bg-white/6"
                       >
                         {tech}
                       </span>
@@ -54,7 +58,7 @@ export default function Projects() {
                   <div className="mt-6 flex flex-wrap gap-3">
                     <a
                       href={project.github}
-                      className="inline-flex items-center gap-2 rounded-lg border border-white/10 px-4 py-2 text-sm text-zinc-300 transition hover:border-white/25 hover:text-white"
+                      className="inline-flex items-center gap-2 rounded-lg border border-white/8 px-4 py-2 text-sm text-zinc-300 transition hover:border-white/25 hover:text-white"
                     >
                       <Code2 size={16} />
                       GitHub
