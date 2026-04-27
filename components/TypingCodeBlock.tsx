@@ -1,7 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
 const fullCode = `const developer = {
   role: "Full Stack Developer",
   age: "18 years old",
@@ -65,27 +61,10 @@ function renderLine(line: string, lineIndex: number, isLastLine: boolean) {
 }
 
 export default function TypingCodeBlock() {
-  const [displayedCode, setDisplayedCode] = useState("");
-
-  useEffect(() => {
-    let index = 0;
-
-    const interval = setInterval(() => {
-      setDisplayedCode(fullCode.slice(0, index));
-      index++;
-
-      if (index > fullCode.length) {
-        clearInterval(interval);
-      }
-    }, 50);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <pre className="m-0 overflow-x-auto bg-transparent p-0 font-mono text-sm leading-relaxed text-zinc-300">
       <code className="block bg-transparent">
-        {displayedCode
+        {fullCode
           .split("\n")
           .map((line, lineIndex, lines) =>
             renderLine(line, lineIndex, lineIndex === lines.length - 1),

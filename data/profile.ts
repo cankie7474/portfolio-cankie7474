@@ -9,7 +9,6 @@ export const profile = {
   headline: "Full Stack Developer from Austria.",
   summary:
     "I am an 18-year-old developer building modern web and mobile applications with clean interfaces, practical features, and a strong focus on learning by shipping real projects.",
-  availability: "Building web, backend, and mobile projects",
 };
 
 export const navLinks = [

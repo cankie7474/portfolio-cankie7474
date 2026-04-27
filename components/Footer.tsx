@@ -4,10 +4,10 @@ import { navLinks, profile } from "@/data/profile";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 px-5 py-10 sm:px-8">
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 text-sm text-zinc-500 md:flex-row md:items-center md:justify-between">
+    <footer className="border-t border-white/10 px-6 py-10">
+      <div className="mx-auto flex max-w-5xl flex-col gap-6 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-3">
-          <span className="flex size-9 items-center justify-center rounded-md bg-white/10 text-white">
+          <span className="flex size-9 items-center justify-center rounded-lg bg-white/10 text-white">
             <Code2 size={18} />
           </span>
           <div>
