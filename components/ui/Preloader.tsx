@@ -26,13 +26,13 @@ export default function Preloader() {
       setCounter((prev) => {
         if (prev >= 100) {
           window.clearInterval(interval);
-          window.setTimeout(() => setIsLoading(false), 700);
+          window.setTimeout(() => setIsLoading(false), 950);
           return 100;
         }
 
-        return Math.min(100, prev + Math.floor(Math.random() * 8) + 3);
+        return Math.min(100, prev + Math.floor(Math.random() * 6) + 2);
       });
-    }, 50);
+    }, 65);
 
     return () => window.clearInterval(interval);
   }, [isLoading]);
